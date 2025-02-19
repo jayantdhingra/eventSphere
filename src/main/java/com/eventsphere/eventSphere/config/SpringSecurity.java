@@ -30,7 +30,7 @@ public class SpringSecurity {
                 .csrf(csrf -> csrf.disable()) // Disable CSRF for APIs if necessary
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/conferences").authenticated() // Require authentication for these APIs
-                        .requestMatchers("/public/**","/api/maps/*").permitAll() // Allow public APIs
+                        .requestMatchers("/public/**","/api/maps/api-key","/venues/**").permitAll() // Allow public APIs
                         .requestMatchers("/auth/login", "/public/signup").permitAll() // Permit login/signup
                         .requestMatchers("/admin/**").hasRole("ADMIN") // Require ADMIN role for /admin/** paths
                         .anyRequest().authenticated() // Require authentication for any other request
