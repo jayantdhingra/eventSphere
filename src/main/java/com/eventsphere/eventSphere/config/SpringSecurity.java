@@ -29,8 +29,17 @@ public class SpringSecurity {
         http
                 .csrf(csrf -> csrf.disable()) // Disable CSRF for APIs if necessary
                 .authorizeHttpRequests(auth -> auth
+<<<<<<< HEAD
                         .requestMatchers("/api/conferences").authenticated() // Require authentication for these APIs
                         .requestMatchers("/public/**","/api/maps/api-key","/venues/**").permitAll() // Allow public APIs
+=======
+                        .requestMatchers("/public/**","/api/maps/api-key","/venues/**").permitAll()
+                        .requestMatchers("/auth/login", "/public/signup").permitAll()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .anyRequest().authenticated()
+                        .requestMatchers("/api/conferences").authenticated() // Require authentication for these APIs
+                        .requestMatchers("/public/**").permitAll() // Allow public APIs
+>>>>>>> 644f7c8 (Adding conference, speaker, location, schedule api and fix authentication error)
                         .requestMatchers("/auth/login", "/public/signup").permitAll() // Permit login/signup
                         .requestMatchers("/admin/**").hasRole("ADMIN") // Require ADMIN role for /admin/** paths
                         .anyRequest().authenticated() // Require authentication for any other request
