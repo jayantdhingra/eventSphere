@@ -20,5 +20,5 @@ public class LocationResponseDTO {
     private Double latitude;
     private Double longitude;
     private String onlineUrl;
-    private Long venueId; // Only ID to avoid full object reference
+//    private Long venueId; // Only ID to avoid full object reference
 }

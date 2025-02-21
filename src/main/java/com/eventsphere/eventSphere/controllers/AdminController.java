@@ -5,7 +5,6 @@ import com.eventsphere.eventSphere.dto.LocationResponseDTO;
 import com.eventsphere.eventSphere.dto.VenueRequestDTO;
 import com.eventsphere.eventSphere.dto.VenueResponseDTO;
 import com.eventsphere.eventSphere.service.LocationService;
-import com.eventsphere.eventSphere.service.VenueService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,16 +14,16 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AdminController {
 
-    @Autowired
-    private  VenueService venueService;
+//    @Autowired
+//    private  VenueService venueService;
     @Autowired
     private  LocationService locationService;
 
     // 🔑 Create a new Venue
-    @PostMapping("/venues")
-    public VenueResponseDTO createVenue(@RequestBody VenueRequestDTO request) {
-        return venueService.createVenue(request);
-    }
+//    @PostMapping("/venues")
+//    public VenueResponseDTO createVenue(@RequestBody VenueRequestDTO request) {
+//        return venueService.createVenue(request);
+//    }
 
     // 🔑 Create a new Location
     @PostMapping("/locations")
@@ -48,18 +47,18 @@ public class AdminController {
     }
 
     // 🔑 Update a Venue (if needed)
-    @PutMapping("/venues/{venueId}")
-    public VenueResponseDTO updateVenue(
-            @PathVariable Long venueId,
-            @RequestBody VenueRequestDTO request) {
-        return venueService.updateVenue(venueId, request); // Add this method if not present
-    }
+//    @PutMapping("/venues/{venueId}")
+//    public VenueResponseDTO updateVenue(
+//            @PathVariable Long venueId,
+//            @RequestBody VenueRequestDTO request) {
+//        return venueService.updateVenue(venueId, request); // Add this method if not present
+//    }
 
     // 🔑 Delete a Venue
-    @DeleteMapping("/venues/{venueId}")
-    public String deleteVenue(@PathVariable Long venueId) {
-        venueService.deleteVenue(venueId); // Add this method in service if needed
-        return "Venue deleted successfully.";
-    }
+//    @DeleteMapping("/venues/{venueId}")
+//    public String deleteVenue(@PathVariable Long venueId) {
+//        venueService.deleteVenue(venueId); // Add this method in service if needed
+//        return "Venue deleted successfully.";
+//    }
 }
 

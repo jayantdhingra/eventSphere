@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "speakers")
-@Data // Generates getters, setters, toString, equals, and hashCode
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Speaker {
@@ -16,12 +16,15 @@ public class Speaker {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
     private String name;
+
+    @Column(nullable = false)
     private String topic;
 
     @ManyToOne
-    @JoinColumn(name = "conference_id")
-    @JsonBackReference
+    @JoinColumn(name = "conference_id", nullable = false)
+    @JsonBackReference(value = "conference-speakers")  // Must match the @JsonManagedReference in Conference
     private Conference conference;
-
 }

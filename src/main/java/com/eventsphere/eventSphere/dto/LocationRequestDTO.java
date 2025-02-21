@@ -12,8 +12,8 @@ import javax.validation.constraints.NotEmpty;
 @Builder
 public class LocationRequestDTO {
 
-    @NotEmpty
-    private Long venueId;
+//    @NotEmpty
+//    private Long venueId;
 
     @NotEmpty
     private String name;

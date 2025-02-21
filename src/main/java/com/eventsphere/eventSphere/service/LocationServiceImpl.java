@@ -3,9 +3,7 @@ package com.eventsphere.eventSphere.service;
 import com.eventsphere.eventSphere.dto.LocationRequestDTO;
 import com.eventsphere.eventSphere.dto.LocationResponseDTO;
 import com.eventsphere.eventSphere.entity.Location;
-import com.eventsphere.eventSphere.entity.Venue;
 import com.eventsphere.eventSphere.repository.LocationRepository;
-import com.eventsphere.eventSphere.repository.VenueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,23 +15,23 @@ public class LocationServiceImpl implements LocationService {
     @Autowired
     private LocationRepository locationRepository;
 
-    @Autowired
-    private VenueRepository venueRepository;
+//    @Autowired
+//    private VenueRepository venueRepository;
 
-    @Override
-    public List<LocationResponseDTO> getLocationsByVenue(Long venueId) {
-        return locationRepository.findByVenueId(venueId).stream()
-                .map(this::mapToLocationResponseDTO)
-                .toList();
-    }
+//    @Override
+//    public List<LocationResponseDTO> getLocationsByVenue(Long venueId) {
+//        return locationRepository.findByVenueId(venueId).stream()
+//                .map(this::mapToLocationResponseDTO)
+//                .toList();
+//    }
 
     @Override
     public LocationResponseDTO addLocation(LocationRequestDTO request) {
-        Venue venue = venueRepository.findById(request.getVenueId())
-                .orElseThrow(() -> new IllegalArgumentException("Venue not found"));
+//        Venue venue = venueRepository.findById(request.getVenueId())
+//                .orElseThrow(() -> new IllegalArgumentException("Venue not found"));
 
         Location location = Location.builder()
-                .venue(venue)
+//                .venue(venue)
                 .name(request.getName())
                 .type(request.getType())
                 .sessionType(request.getSessionType())
@@ -79,7 +77,7 @@ public class LocationServiceImpl implements LocationService {
                 .latitude(location.getLatitude())
                 .longitude(location.getLongitude())
                 .onlineUrl(location.getOnlineUrl())
-                .venueId(location.getVenue().getId())
+//                .venueId(location.getVenue().getId())
                 .build();
     }
 }
