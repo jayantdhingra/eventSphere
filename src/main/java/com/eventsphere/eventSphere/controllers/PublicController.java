@@ -52,7 +52,7 @@ public class PublicController {
             String jwt = jwtUtil.generateToken(userDetails.getUsername());
             return new ResponseEntity<>(jwt, HttpStatus.OK);
         }catch(Exception ex){
-            log.error("Exception occured while createAuthenticationToken ", ex);
+            log.error("Exception occurred while createAuthenticationToken ", ex);
             return new ResponseEntity<>("Incorrect username or password", HttpStatus.BAD_REQUEST);
         }
     }

@@ -46,19 +46,5 @@ public class AdminController {
         return "Location deleted successfully.";
     }
 
-    // 🔑 Update a Venue (if needed)
-//    @PutMapping("/venues/{venueId}")
-//    public VenueResponseDTO updateVenue(
-//            @PathVariable Long venueId,
-//            @RequestBody VenueRequestDTO request) {
-//        return venueService.updateVenue(venueId, request); // Add this method if not present
-//    }
-
-    // 🔑 Delete a Venue
-//    @DeleteMapping("/venues/{venueId}")
-//    public String deleteVenue(@PathVariable Long venueId) {
-//        venueService.deleteVenue(venueId); // Add this method in service if needed
-//        return "Venue deleted successfully.";
-//    }
 }
 
