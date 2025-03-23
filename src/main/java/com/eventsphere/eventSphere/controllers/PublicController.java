@@ -40,6 +40,7 @@ public class PublicController {
         newUser.setEmail(user.getEmail());
         newUser.setUserName(user.getUserName());
         newUser.setPassword(user.getPassword());
+        newUser.setRoles(user.getRoles());
         userService.saveNewUser(newUser);
     }
 

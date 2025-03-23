@@ -1,8 +1,11 @@
 package com.eventsphere.eventSphere.controllers;
 
 import com.eventsphere.eventSphere.entity.Speaker;
+import com.eventsphere.eventSphere.entity.User;
 import com.eventsphere.eventSphere.repository.ConferenceRepository;
 import com.eventsphere.eventSphere.repository.SpeakerRepository;
+import com.eventsphere.eventSphere.repository.UserRepository;
+import com.eventsphere.eventSphere.service.UserProjection;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +21,13 @@ public class SpeakerController {
     @Autowired
     private ConferenceRepository conferenceRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping
-    public List<Speaker> getAllSpeakers() {
-        return speakerRepository.findAll();
+    public List<UserProjection> getAllSpeakers() {
+
+        return userRepository.findByRole("SPEAKER");
     }
 
     @PostMapping("/{conferenceId}")
