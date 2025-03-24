@@ -29,10 +29,10 @@ public class SpringSecurity {
         http
                 .csrf(csrf -> csrf.disable()) // Disable CSRF for APIs if necessary
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/conferences").authenticated() // Require authentication for these APIs
+                        .requestMatchers("/api/conferences","/api/chat/**","/attendee/**").authenticated() // Require authentication for these APIs
                         .requestMatchers("/public/**","/api/maps/api-key","/venues/**").permitAll() // Allow public APIs
-                        .requestMatchers("/auth/login", "/public/signup").permitAll() // Permit login/signup
-                        .requestMatchers("/admin/**").hasRole("ADMIN") // Require ADMIN role for /admin/** paths
+                        .requestMatchers("/auth/login", "/public/signup","/admin/**").permitAll() // Permit login/signup
+                       // .requestMatchers("/admin/**").hasRole("ADMIN") // Require ADMIN role for /admin/** paths
                         .anyRequest().authenticated() // Require authentication for any other request
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Stateless sessions
@@ -50,4 +50,6 @@ public class SpringSecurity {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
 }
