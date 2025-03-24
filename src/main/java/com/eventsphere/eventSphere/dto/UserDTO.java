@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -16,4 +17,6 @@ public class UserDTO {
     private boolean sentimentAnalysis;
     @NotEmpty
     private String password;
+    @NotEmpty
+    private List<String> role;
 }

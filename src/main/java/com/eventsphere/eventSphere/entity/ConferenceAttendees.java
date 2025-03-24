@@ -3,39 +3,36 @@ package com.eventsphere.eventSphere.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.*;
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "meeting") // Avoid using "user" as it's a reserved keyword
+@Table(name = "conference_attendees") // Avoid using "user" as it's a reserved keyword
 @Data // Generates getters, setters, toString, equals, and hashCode
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Meeting {
-
+public class ConferenceAttendees {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
-    private String meetingId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "conference_id", nullable = false)
+    @JsonIgnore
+    private Conference conference;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "hostId", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     @JsonIgnore
-    private User host;
+    private User user;
 
     @Column(nullable = false)
-    private LocalDateTime startTime;
-
-    @Column
-    private LocalDateTime endTime;
-
-    @OneToMany(mappedBy = "meeting", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<MeetingParticipants> participants;
+    private LocalDateTime registeredAt;
 
     @Column(nullable = false)
-    private String status; // YET TO START, ACTIVE, ENDED
+    private String paymentStatus; // Pending/Completed
 }

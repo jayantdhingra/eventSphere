@@ -1,7 +1,5 @@
 package com.eventsphere.eventSphere.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -17,8 +15,7 @@ public class Conference {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private Long conference_id; //changed column name
     private String name;
     private String description;
     private String date;
