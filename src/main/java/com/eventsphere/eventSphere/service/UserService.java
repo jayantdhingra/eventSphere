@@ -23,15 +23,14 @@ public class UserService {
 
     public boolean saveNewUser(User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-       // user.setRoles(Arrays.asList("USER"));
+        user.setRoles(Arrays.asList("USER"));
         userRepository.save(user);
         return true;
     }
 
     public void saveAdmin(User user){
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        //user.setRoles(Arrays.asList("USER", "ADMIN"));
-        user.setRoles(Arrays.asList("Organizer"));
+        user.setRoles(Arrays.asList("USER", "ADMIN"));
         userRepository.save(user);
     }
 
@@ -39,8 +38,8 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public List<User> getAllAttendees() {
-        return userRepository.getAllAttendees();
+    public List<User> getAll() {
+        return userRepository.findAll();
     }
 
     public Optional<User> findById(Long id) {

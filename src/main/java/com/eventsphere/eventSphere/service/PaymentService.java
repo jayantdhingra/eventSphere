@@ -27,6 +27,22 @@ public class PaymentService {
     @Value("${stripe.secret.key}")
     private String stripeSecretKey;
 
+    private static final String DB_USER = "admin";
+    private static final String DB_PASSWORD = "password123";
+
+    public void duplicateCodeExample() {
+        try{
+            String message1 = "This is duplicate code";
+            System.out.println(message1);
+
+            String message2 = "This is duplicate code";
+            System.out.println(message2);
+
+        }catch(Exception ex){
+
+        }
+    }
+
     private final UserRepository userRepository;
     private final TicketRepository ticketRepository;
     private final PaymentRepository paymentRepository;
@@ -41,6 +57,8 @@ public class PaymentService {
 
         // Initialize Stripe API key
         Stripe.apiKey = stripeSecretKey;
+
+
 
 //        PaymentMethodCreateParams paymentMethodParams = PaymentMethodCreateParams.builder()
 //                .setType(PaymentMethodCreateParams.Type.CARD)

@@ -18,5 +18,5 @@ public class UserDTO {
     @NotEmpty
     private String password;
     @NotEmpty
-    private List<String> role;
+    private List<String> roles;
 }

@@ -20,9 +20,17 @@ public class Conference {
     private String description;
     private String date;
 
-    @OneToMany(mappedBy = "conference", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference(value = "conference-speakers")  // Reference for speakers
-    private List<Speaker> speakers;
+//    @OneToMany(mappedBy = "conference", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JsonManagedReference(value = "conference-speakers")  // Reference for speakers
+//    private List<Speaker> speakers;
+
+    @ManyToMany
+    @JoinTable(
+            name = "conference_speakers",
+            joinColumns = @JoinColumn(name = "conference_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private List<User> speakers;
 
     @OneToMany(mappedBy = "conference", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference(value = "conference-schedules")  // Reference for schedules
