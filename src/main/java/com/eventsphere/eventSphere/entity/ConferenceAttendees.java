@@ -6,11 +6,16 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
+@ToString(exclude = {"conference", "user"})
 @Entity
-@Table(name = "conference_attendees") // Avoid using "user" as it's a reserved keyword
+@Table(name = "conference_attendees",
+uniqueConstraints = {
+@UniqueConstraint(columnNames = {"user_id", "conference_id"})
+  }) // Avoid using "user" as it's a reserved keyword
 @Data // Generates getters, setters, toString, equals, and hashCode
 @NoArgsConstructor
 @AllArgsConstructor
@@ -34,5 +39,7 @@ public class ConferenceAttendees {
     private LocalDateTime registeredAt;
 
     @Column(nullable = false)
-    private String paymentStatus; // Pending/Completed
+    private String paymentStatus; // Pending/Completed/Refunded
+
+
 }

@@ -82,8 +82,19 @@ public class ChatController {
 
 
     @GetMapping("/checkAllPendingRequests/{receiverId}")
-    public List<ChatRequest> getAllChatRequests(@PathVariable String receiverId){
-        return chatRequestRepository.findByReceiverIdAndStatus(Long.valueOf(receiverId),"PENDING");
+    public List<ChatRequest> getAllChatRequests(@PathVariable Long receiverId){
+        return chatRequestRepository.findByReceiverIdAndStatus(receiverId,"PENDING");
+    }
+
+    @GetMapping("/connections")
+    public ResponseEntity<String> findUserConnections(@RequestParam Long senderId, @RequestParam Long receiverId) {
+        String status = chatRequestRepository.findUserConnections(senderId, receiverId);
+
+        if (status == null || status.isEmpty()) {
+            return ResponseEntity.ok("No Connection");
+        }
+
+        return ResponseEntity.ok(status);
     }
 
     /**
@@ -111,6 +122,30 @@ public class ChatController {
 
         log.info("Chat request between {} and {} accepted.", chatRequest.getSender().getUserName(), chatRequest.getReceiver().getUserName());
         return "Chat request accepted.";
+    }
+
+    @PostMapping("/request/reject")
+    public String rejectChatRequest(@RequestParam Long requestId) {
+        Optional<ChatRequest> chatRequestOpt = chatRequestRepository.findById(requestId);
+
+        if (chatRequestOpt.isEmpty()) {
+            log.warn("Chat request with ID {} not found.", requestId);
+            return "Chat request not found.";
+        }
+
+        ChatRequest chatRequest = chatRequestOpt.get();
+        chatRequest.setStatus("REJECTED");
+        chatRequest.setResponseTime(LocalDateTime.now());
+        chatRequestRepository.save(chatRequest);
+
+        Long chatId = chatRequest.getId();
+
+        // 🔹 WebSocket Notification for Chat Acceptance
+        messagingTemplate.convertAndSend("/topic/chat/" + chatRequest.getSender().getId(), Map.of("chatId", chatId, "message", "Your chat request was rejected!"));
+        messagingTemplate.convertAndSend("/topic/chat/" + chatRequest.getReceiver().getId(), Map.of("chatId", chatId, "message", "Chat request rejected!"));
+
+        log.info("Chat request between {} and {} rejected.", chatRequest.getSender().getUserName(), chatRequest.getReceiver().getUserName());
+        return "Chat request rejected.";
     }
 
 

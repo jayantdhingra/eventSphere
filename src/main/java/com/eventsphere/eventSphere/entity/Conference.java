@@ -39,5 +39,16 @@ public class Conference {
     @OneToMany(mappedBy = "conference", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonManagedReference(value = "conference-locations")  // Reference for locations
     private List<Location> locations;
+
+    @Override
+    public String toString() {
+        return "Conference{" +
+                "conference_id=" + conference_id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", date='" + date + '\'' +
+                '}';
+    }
+
 }
 
